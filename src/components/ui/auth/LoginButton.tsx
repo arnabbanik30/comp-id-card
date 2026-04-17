@@ -1,5 +1,5 @@
 import { Button } from '../button';
-import { signIn } from '#/lib/auth';
+import { signIn } from '#/lib/auth/auth';
 
 export function LoginButton() {
   const handleSignIn = () => {
