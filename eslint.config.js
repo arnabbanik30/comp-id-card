@@ -1,10 +1,14 @@
 //  @ts-check
 
 import { tanstackConfig } from '@tanstack/eslint-config';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
   ...tanstackConfig,
   {
+    plugins: {
+      'react-hooks': reactHooks,
+    },
     rules: {
       curly: ['error', 'all'],
       'import/no-cycle': 'off',
@@ -14,6 +18,7 @@ export default [
       '@typescript-eslint/require-await': 'warn',
       'pnpm/json-enforce-catalog': 'off',
       'no-console': ['error', { allow: ['warn', 'error'] }],
+      'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'error',
     },
   },
