@@ -5,7 +5,7 @@ export function signIn() {
     client_id: APP_ID,
     response_type: 'token',
     redirect_uri: window.location.origin,
-    scope: 'manage_competitions',
+    scope: 'public dob email manage_competitions openid profile cms',
   });
 
   window.location.assign(`${WCA_HOST}/oauth/authorize?${params.toString()}`);
