@@ -1,4 +1,4 @@
-import { LoginButton } from './ui/login-button/LoginButton'
+import { LoginButton } from './ui/login-button/LoginButton';
 
 export default function Header() {
   return (
@@ -8,5 +8,5 @@ export default function Header() {
         <LoginButton />
       </nav>
     </header>
-  )
+  );
 }
