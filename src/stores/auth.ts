@@ -1,7 +1,7 @@
 import { Store } from '@tanstack/store';
+import { createStorageHelper } from './utils';
 import type { WcaUser } from '#/lib/auth/types';
 import { fetchMe } from '#/lib/auth/auth';
-import { createStorageHelper } from './utils';
 
 type AuthStoreType = {
   accessToken?: string | null;
