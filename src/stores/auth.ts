@@ -1,6 +1,7 @@
 import { Store } from '@tanstack/store';
 import type { WcaUser } from '#/lib/auth/types';
 import { fetchMe } from '#/lib/auth/auth';
+import { createStorageHelper } from './utils';
 
 type AuthStoreType = {
   accessToken?: string | null;
@@ -9,23 +10,10 @@ type AuthStoreType = {
   user?: WcaUser | null;
 };
 
-export const authStorageKey = (key: keyof AuthStoreType) =>
+export const getAuthStorageKey = (key: keyof AuthStoreType) =>
   `comp-id-card-auth-${key}`;
 
-const getFromStorage = <T>(
-  key: keyof AuthStoreType,
-  defaultVal: T,
-  parse = false,
-) => {
-  if (typeof window === 'undefined') {
-    return defaultVal;
-  }
-  const item = localStorage.getItem(authStorageKey(key));
-  if (!item) {
-    return defaultVal;
-  }
-  return parse ? JSON.parse(item) : (item as unknown as T);
-};
+const getFromStorage = createStorageHelper<AuthStoreType>(getAuthStorageKey);
 
 export const authStore = new Store<AuthStoreType>({
   accessToken: getFromStorage('accessToken', null),
@@ -43,7 +31,7 @@ const hasTokenExpired = (expirationTime: string | null): boolean => {
 
 export const checkTokenExpiration = () => {
   const isExpired = hasTokenExpired(
-    localStorage.getItem(authStorageKey('expiresIn')),
+    localStorage.getItem(getAuthStorageKey('expiresIn')),
   );
 
   if (!isExpired) {
@@ -62,9 +50,12 @@ export const setAccessToken = (token: string, expiresIn: number) => {
     .getTime()
     .toString();
 
-  localStorage.setItem(authStorageKey('accessToken'), token);
-  localStorage.setItem(authStorageKey('expiresIn'), expirationTime.toString());
-  localStorage.setItem(authStorageKey('isSignedIn'), 'true');
+  localStorage.setItem(getAuthStorageKey('accessToken'), token);
+  localStorage.setItem(
+    getAuthStorageKey('expiresIn'),
+    expirationTime.toString(),
+  );
+  localStorage.setItem(getAuthStorageKey('isSignedIn'), 'true');
   authStore.setState((prev) => ({
     ...prev,
     accessToken: token,
@@ -76,7 +67,7 @@ export const setAccessToken = (token: string, expiresIn: number) => {
 export const resetAuthStatus = () => {
   const store = authStore.get();
   for (const key in store) {
-    localStorage.removeItem(authStorageKey(key as keyof AuthStoreType));
+    localStorage.removeItem(getAuthStorageKey(key as keyof AuthStoreType));
   }
   authStore.setState(() => ({}));
 };
@@ -86,7 +77,7 @@ const setMe = (user: WcaUser | null) => {
     ...prev,
     user,
   }));
-  localStorage.setItem(authStorageKey('user'), JSON.stringify(user));
+  localStorage.setItem(getAuthStorageKey('user'), JSON.stringify(user));
 };
 
 export const initializeAuth = async () => {
@@ -100,7 +91,7 @@ export const initializeAuth = async () => {
     const expiresIn = parseInt(hashParams.get('expires_in') || '7200', 10);
 
     setAccessToken(token, expiresIn);
-    const user = await fetchMe(token);
+    const user = await fetchMe();
     setMe(user);
     window.history.replaceState({}, '', window.location.pathname);
   }
