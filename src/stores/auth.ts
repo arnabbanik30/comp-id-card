@@ -38,7 +38,7 @@ const hasTokenExpired = (expirationTime: string | null): boolean => {
   if (!expirationTime) {
     return false;
   }
-  return new Date() >= new Date(expirationTime);
+  return new Date() >= new Date(parseInt(expirationTime));
 };
 
 export const checkTokenExpiration = () => {
