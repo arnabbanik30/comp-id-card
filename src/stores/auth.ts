@@ -74,9 +74,11 @@ export const setAccessToken = (token: string, expiresIn: number) => {
 };
 
 export const resetAuthStatus = () => {
-  for (const key in authStore) {
+  const store = authStore.get();
+  for (const key in store) {
     localStorage.removeItem(authStorageKey(key as keyof AuthStoreType));
   }
+  authStore.setState(() => ({}));
 };
 
 const setMe = (user: WcaUser | null) => {

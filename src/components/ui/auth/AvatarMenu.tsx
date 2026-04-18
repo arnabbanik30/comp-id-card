@@ -10,6 +10,7 @@ import {
 } from '../dropdown-menu';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
 import { authStore } from '#/stores/auth';
+import { signOut } from '#/lib/auth/auth';
 
 export function AvatarMenu() {
   const user = authStore.state.user;
@@ -61,7 +62,12 @@ export function AvatarMenu() {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem
+          variant="destructive"
+          onSelect={() => {
+            signOut();
+          }}
+        >
           <LogOutIcon />
           Sign Out
         </DropdownMenuItem>

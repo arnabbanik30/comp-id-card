@@ -1,6 +1,7 @@
 import { APP_ID, WCA_HOST } from '../config';
 
 import type { WcaUser } from './types';
+import { resetAuthStatus } from '#/stores/auth';
 
 export function signIn() {
   const params = new URLSearchParams({
@@ -11,6 +12,10 @@ export function signIn() {
   });
 
   window.location.assign(`${WCA_HOST}/oauth/authorize?${params.toString()}`);
+}
+
+export function signOut() {
+  resetAuthStatus();
 }
 
 export async function fetchMe(accessToken: string | null): Promise<WcaUser> {

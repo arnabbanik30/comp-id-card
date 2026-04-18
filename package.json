@@ -22,7 +22,7 @@
     "@tanstack/react-router-devtools": "latest",
     "@tanstack/react-router-ssr-query": "latest",
     "@tanstack/react-start": "latest",
-    "@tanstack/react-store": "latest",
+    "@tanstack/react-store": "^0.11.0",
     "@tanstack/router-plugin": "^1.132.0",
     "@tanstack/store": "latest",
     "class-variance-authority": "^0.7.1",
