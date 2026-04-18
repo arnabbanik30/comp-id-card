@@ -1,6 +1,14 @@
-import { Avatar, AvatarImage } from '../avatar';
+import { LogOutIcon, UserIcon } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
 import { Button } from '../button';
-import { DropdownMenu, DropdownMenuTrigger } from '../dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../dropdown-menu';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
 import { authStore } from '#/stores/auth';
 
 export function AvatarMenu() {
@@ -9,22 +17,55 @@ export function AvatarMenu() {
     return null;
   }
 
+  const getInitials = (name: string) =>
+    name
+      .split(' ')
+      .map((n) => n[0].toUpperCase())
+      .join('')
+      .slice(0, 2);
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full"
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+            >
+              <Avatar className="hover:ring-2 hover:ring-offset-2 hover:ring-default">
+                <AvatarImage
+                  src={user.avatar.thumb_url}
+                  alt={user.name}
+                />
+                <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+        </TooltipTrigger>
+        <TooltipContent side="left">
+          {user.name} <br /> {`<${user.email}>`}
+        </TooltipContent>
+      </Tooltip>
+      <DropdownMenuContent align="start">
+        <DropdownMenuItem
+          onSelect={(event) => {
+            event.preventDefault();
+            window.open(user.url, '_blank');
+          }}
         >
-          <Avatar className="hover:ring-2 hover:ring-offset-2 hover:ring-default">
-            <AvatarImage
-              src={user.avatar.thumb_url}
-              alt={user.name}
-            />
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
+          <UserIcon />
+          WCA Profile
+        </DropdownMenuItem>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem variant="destructive">
+          <LogOutIcon />
+          Sign Out
+        </DropdownMenuItem>
+      </DropdownMenuContent>
     </DropdownMenu>
   );
 }
