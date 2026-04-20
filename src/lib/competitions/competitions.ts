@@ -20,8 +20,13 @@ export async function fetchMyManagedCompetitions() {
 }
 
 export async function setCompetitions() {
-  const competitions = await fetchMyManagedCompetitions();
-  setCompetitionsStore(competitions);
+  try {
+    const competitions = await fetchMyManagedCompetitions();
+    setCompetitionsStore(competitions);
+    return competitions;
+  } catch (e) {
+    console.error(e);
+  }
 }
 export function resetCompetitions() {
   resetCompetitionsStore();

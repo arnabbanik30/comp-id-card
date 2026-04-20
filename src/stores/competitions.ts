@@ -4,6 +4,7 @@ import type { CompetitionType } from '#/lib/competitions/types';
 
 type CompetitionsStoreType = {
   competitions?: Array<CompetitionType> | null;
+  selectedCompId?: string | null;
 };
 
 const getCompetitionsStorageKey = (key: keyof CompetitionsStoreType) =>
@@ -13,7 +14,7 @@ const getFromStorage = createStorageHelper<CompetitionsStoreType>(
   getCompetitionsStorageKey,
 );
 
-export const CompetitionsStore = new Store<CompetitionsStoreType>({
+export const competitionsStore = new Store<CompetitionsStoreType>({
   competitions: getFromStorage(
     'competitions',
     null,
@@ -31,10 +32,16 @@ export function setCompetitionsStore(
     getCompetitionsStorageKey('competitions'),
     JSON.stringify(competitions),
   );
+  competitionsStore.setState((state) => ({ ...state, competitions }));
 }
 export function resetCompetitionsStore() {
   if (typeof window === 'undefined') {
     return null;
   }
   localStorage.removeItem(getCompetitionsStorageKey('competitions'));
+  competitionsStore.setState((state) => ({ ...state, competitions: null }));
+}
+
+export function setSelectedCompId(selectedCompId: string) {
+  competitionsStore.setState((state) => ({ ...state, selectedCompId }));
 }
