@@ -9,7 +9,7 @@ import {
 } from '../../select';
 import type { PersonWCIF } from '#/lib/wcif/types';
 import { competitionsStore } from '#/stores/competitions';
-import { A6Card, IdCardHeader } from '../../id-card';
+import { A6Card, IdCardHeader, IdCardPunchHole } from '../../id-card';
 
 export function SingleTab() {
   const compData = useSelector(
@@ -51,6 +51,7 @@ export function SingleTab() {
 
       <div className="p-2 m-2 flex justify-center align-center">
         <A6Card>
+          <IdCardPunchHole />
           <IdCardHeader
             name={compData.shortName!}
             date="7-8 May, 2026"
