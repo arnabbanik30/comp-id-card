@@ -1,10 +1,12 @@
 import { Store } from '@tanstack/store';
 import { createStorageHelper } from './utils';
 import type { CompetitionType } from '#/lib/competitions/types';
+import type { CompetitionWCIF } from '#/lib/wcif/types';
 
 type CompetitionsStoreType = {
   competitions?: Array<CompetitionType> | null;
   selectedCompId?: string | null;
+  compDataWCIF?: CompetitionWCIF | null;
 };
 
 const getCompetitionsStorageKey = (key: keyof CompetitionsStoreType) =>
@@ -34,14 +36,19 @@ export function setCompetitionsStore(
   );
   competitionsStore.setState((state) => ({ ...state, competitions }));
 }
+
 export function resetCompetitionsStore() {
   if (typeof window === 'undefined') {
     return null;
   }
   localStorage.removeItem(getCompetitionsStorageKey('competitions'));
-  competitionsStore.setState((state) => ({ ...state, competitions: null }));
+  competitionsStore.setState(() => ({}));
 }
 
 export function setSelectedCompId(selectedCompId: string) {
   competitionsStore.setState((state) => ({ ...state, selectedCompId }));
+}
+
+export function setCompData(compDataWCIF: CompetitionWCIF) {
+  competitionsStore.setState((state) => ({ ...state, compDataWCIF }));
 }

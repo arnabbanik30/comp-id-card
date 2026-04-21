@@ -1,5 +1,6 @@
-import { Tabs, TabsList, TabsTrigger } from '../../tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '../../card';
+import { SingleTab } from './SingleTab';
 
 export function PreviewCard() {
   return (
@@ -16,6 +17,9 @@ export function PreviewCard() {
             <TabsTrigger value="single">Single</TabsTrigger>
             <TabsTrigger value="full-page"> Full Page</TabsTrigger>
           </TabsList>
+          <TabsContent value="single">
+            <SingleTab />
+          </TabsContent>
         </Tabs>
       </CardContent>
     </Card>

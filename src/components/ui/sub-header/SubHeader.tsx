@@ -1,6 +1,6 @@
 import { ChevronDownIcon } from 'lucide-react';
 import { useSelector } from '@tanstack/react-store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Menubar,
   MenubarContent,
@@ -18,6 +18,7 @@ import {
   setCompetitions,
 } from '#/lib/competitions/competitions';
 import { competitionsStore, setSelectedCompId } from '#/stores/competitions';
+import { getCompetitionWCIF } from '#/lib/wcif/competition-wcif';
 
 export function SubHeader() {
   const isSignedIn = useSelector(authStore, (state) => state.isSignedIn);
@@ -28,6 +29,12 @@ export function SubHeader() {
   const [selectedComp, setSelectedComp] = useState<CompetitionType | null>(
     null,
   );
+  useEffect(() => {
+    if (selectedComp?.id) {
+      getCompetitionWCIF(selectedComp.id);
+    }
+  }, [selectedComp]);
+
   if (!isSignedIn) {
     resetCompetitions();
     return null;
