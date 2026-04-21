@@ -36,7 +36,7 @@ export function SubHeader() {
 
   return (
     <div className="w-full max-w-full justify-start border-b border-t border-[var(--line)] bg-[var(--sand)]">
-      <Menubar className="page-wrap">
+      <Menubar className="container mx-auto">
         <MenubarMenu>
           <MenubarTrigger asChild>
             <Button variant="ghost">
