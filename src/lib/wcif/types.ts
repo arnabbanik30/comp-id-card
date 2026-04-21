@@ -44,6 +44,7 @@ export type ScheduleWCIF = {
   venues: Array<VenueWCIF> | null;
 };
 export type CompetitionWCIF = {
+  shortName: string | null;
   persons: Array<PersonWCIF> | null;
   schedule: ScheduleWCIF | null;
 };

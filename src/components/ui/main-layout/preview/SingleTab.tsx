@@ -9,6 +9,7 @@ import {
 } from '../../select';
 import type { PersonWCIF } from '#/lib/wcif/types';
 import { competitionsStore } from '#/stores/competitions';
+import { A6Card, IdCardHeader } from '../../id-card';
 
 export function SingleTab() {
   const compData = useSelector(
@@ -47,6 +48,16 @@ export function SingleTab() {
           ))}
         </SelectContent>
       </Select>
+
+      <div className="p-2 m-2 flex justify-center align-center">
+        <A6Card>
+          <IdCardHeader
+            name={compData.shortName!}
+            date="7-8 May, 2026"
+            venue="BUBT, MIRPUR"
+          />
+        </A6Card>
+      </div>
     </>
   );
 }

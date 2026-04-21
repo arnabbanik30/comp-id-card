@@ -6,7 +6,7 @@ export const Route = createFileRoute('/')({ component: App });
 
 function App() {
   return (
-    <main className="container mx-auto px-4 pt-14 h-[750px]">
+    <main className="container mx-auto px-4 pt-14 h-[800px]">
       <div className="flex flex-row gap-6 h-full">
         <ConfigCard />
         <PreviewCard />
