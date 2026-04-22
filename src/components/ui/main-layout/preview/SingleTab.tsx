@@ -7,9 +7,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../select';
+import {
+  A6Card,
+  IdCardCompetitorInfo,
+  IdCardHeader,
+  IdCardPunchHole,
+} from '../../id-card';
 import type { PersonWCIF } from '#/lib/wcif/types';
 import { competitionsStore } from '#/stores/competitions';
-import { A6Card, IdCardHeader, IdCardPunchHole } from '../../id-card';
 
 export function SingleTab() {
   const compData = useSelector(
@@ -22,9 +27,13 @@ export function SingleTab() {
     return null;
   }
 
+  const handleValueChange = (value: string) => {
+    const idx = parseInt(value);
+    setSelectedPerson(compData.persons![idx]);
+  };
   return (
     <>
-      <Select>
+      <Select onValueChange={handleValueChange}>
         <SelectTrigger defaultValue={selectedPerson?.name ?? ''}>
           <SelectValue placeholder={'Select a Person'} />
         </SelectTrigger>
@@ -33,13 +42,12 @@ export function SingleTab() {
           position="popper"
           align="start"
         >
-          {compData.persons?.map((person) => (
+          {compData.persons?.map((person, idx) => (
             <>
               {person.registrantId && (
                 <SelectItem
                   key={person.registrantId}
-                  value={person.registrantId.toString()}
-                  onSelect={() => setSelectedPerson(person)}
+                  value={idx.toString()}
                 >
                   {`${person.name} - ${person.wcaId}`}
                 </SelectItem>
@@ -56,6 +64,11 @@ export function SingleTab() {
             name={compData.shortName!}
             date="7-8 May, 2026"
             venue="BUBT, MIRPUR"
+          />
+          <IdCardCompetitorInfo
+            name={selectedPerson?.name ?? ''}
+            wcaId={selectedPerson?.wcaId}
+            registrantId={selectedPerson?.registrantId ?? -1}
           />
         </A6Card>
       </div>
