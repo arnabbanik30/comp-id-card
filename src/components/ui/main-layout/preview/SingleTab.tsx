@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSelector } from '@tanstack/react-store';
 import {
   Select,
@@ -10,11 +10,13 @@ import {
 import {
   A6Card,
   IdCardCompetitorInfo,
+  IdCardGroupInfo,
   IdCardHeader,
   IdCardPunchHole,
 } from '../../id-card';
 import type { PersonWCIF } from '#/lib/wcif/types';
 import { competitionsStore } from '#/stores/competitions';
+import { getAllActivities } from '#/lib/competitions/helper';
 
 export function SingleTab() {
   const compData = useSelector(
@@ -22,6 +24,11 @@ export function SingleTab() {
     (state) => state.compDataWCIF,
   );
   const [selectedPerson, setSelectedPerson] = useState<PersonWCIF | null>(null);
+
+  const allActivities = useMemo(
+    () => compData && getAllActivities(compData),
+    [compData],
+  );
 
   if (!compData) {
     return null;
@@ -70,6 +77,12 @@ export function SingleTab() {
             wcaId={selectedPerson?.wcaId}
             registrantId={selectedPerson?.registrantId ?? -1}
           />
+          {selectedPerson?.assignments && (
+            <IdCardGroupInfo
+              personInfo={selectedPerson}
+              allActivities={allActivities!}
+            />
+          )}
         </A6Card>
       </div>
     </>

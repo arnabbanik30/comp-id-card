@@ -17,7 +17,7 @@ export type PersonWCIF = {
   wcaId: string | null | undefined;
   registrantId: number;
   countryIso2: string | null;
-  assignments: Array<AssignmentCodeWCIF> | null;
+  assignments: Array<AssignmentsWCIF> | null;
 };
 
 export type ActivityWCIF = {
