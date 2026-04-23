@@ -1,3 +1,5 @@
+import type { WcaEventIdType } from './events';
+
 export type AssignmentCodeWCIF =
   | 'competitor'
   | 'staff-judge'
@@ -43,8 +45,14 @@ export type VenueWCIF = {
 export type ScheduleWCIF = {
   venues: Array<VenueWCIF> | null;
 };
+
+export type EventWCIF = {
+  id: WcaEventIdType;
+};
+
 export type CompetitionWCIF = {
   shortName: string | null;
   persons: Array<PersonWCIF> | null;
   schedule: ScheduleWCIF | null;
+  events: Array<EventWCIF> | null;
 };

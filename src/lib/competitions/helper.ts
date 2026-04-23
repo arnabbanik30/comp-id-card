@@ -1,3 +1,4 @@
+import type { WcaEventIdType } from '../wcif/events';
 import type { ActivityWCIF, CompetitionWCIF } from '../wcif/types';
 
 function collectActivities(activities: ActivityWCIF[]): Record<string, string> {
@@ -22,4 +23,18 @@ export function getAllActivities(compData: CompetitionWCIF) {
     },
     {},
   );
+}
+
+export function getCompetitionEvents(compData: CompetitionWCIF) {
+  return compData.events?.map((event) => event.id);
+}
+
+export function placeEventsAtEnd(
+  events: WcaEventIdType[],
+  competitionEvents: WcaEventIdType[] = [],
+) {
+  return [
+    ...competitionEvents.filter((e) => !events.includes(e)),
+    ...competitionEvents.filter((e) => events.includes(e)),
+  ];
 }

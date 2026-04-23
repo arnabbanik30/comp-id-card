@@ -16,7 +16,11 @@ import {
 } from '../../id-card';
 import type { PersonWCIF } from '#/lib/wcif/types';
 import { competitionsStore } from '#/stores/competitions';
-import { getAllActivities } from '#/lib/competitions/helper';
+import {
+  getAllActivities,
+  getCompetitionEvents,
+  placeEventsAtEnd,
+} from '#/lib/competitions/helper';
 
 export function SingleTab() {
   const compData = useSelector(
@@ -29,6 +33,14 @@ export function SingleTab() {
     () => compData && getAllActivities(compData),
     [compData],
   );
+
+  const competitionEvents = useMemo(() => {
+    if (!compData) {
+      return null;
+    }
+    const events = getCompetitionEvents(compData);
+    return placeEventsAtEnd(['333mbf', '333fm'], events);
+  }, [compData]);
 
   if (!compData) {
     return null;
@@ -80,6 +92,7 @@ export function SingleTab() {
           {selectedPerson?.assignments && (
             <IdCardGroupInfo
               personInfo={selectedPerson}
+              eventsInfo={competitionEvents!}
               allActivities={allActivities!}
             />
           )}
