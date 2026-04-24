@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useSelector } from '@tanstack/react-store';
 import {
   Select,
@@ -43,8 +43,15 @@ export function SingleTab() {
     return placeEventsAtEnd(['333mbf', '333fm'], events);
   }, [compData]);
 
+  const compDataRef = useRef(compData);
+
   if (!compData) {
     return null;
+  }
+
+  if (compDataRef.current !== compData) {
+    setSelectedPerson(null);
+    compDataRef.current = compData;
   }
 
   const handleValueChange = (value: string) => {
@@ -53,7 +60,10 @@ export function SingleTab() {
   };
   return (
     <>
-      <Select onValueChange={handleValueChange}>
+      <Select
+        key={compData.shortName}
+        onValueChange={handleValueChange}
+      >
         <SelectTrigger defaultValue={selectedPerson?.name ?? ''}>
           <SelectValue placeholder={'Select a Person'} />
         </SelectTrigger>
