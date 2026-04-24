@@ -35,11 +35,17 @@ export function SubHeader() {
     }
   }, [selectedComp]);
 
+  useEffect(() => {
+    if (!isSignedIn) {
+      resetCompetitions();
+    } else {
+      setCompetitions();
+    }
+  }, [isSignedIn]);
+
   if (!isSignedIn) {
-    resetCompetitions();
     return null;
   }
-  setCompetitions();
 
   return (
     <div className="w-full max-w-full justify-start border-b border-t border-[var(--line)] bg-[var(--sand)]">
