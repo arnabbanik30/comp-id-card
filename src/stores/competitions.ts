@@ -7,6 +7,7 @@ type CompetitionsStoreType = {
   competitions?: Array<CompetitionType> | null;
   selectedCompId?: string | null;
   compDataWCIF?: CompetitionWCIF | null;
+  wcaLiveQRCodeUrlBlob?: string | null;
 };
 
 const getCompetitionsStorageKey = (key: keyof CompetitionsStoreType) =>
@@ -51,4 +52,8 @@ export function setSelectedCompId(selectedCompId: string) {
 
 export function setCompData(compDataWCIF: CompetitionWCIF) {
   competitionsStore.setState((state) => ({ ...state, compDataWCIF }));
+}
+
+export function setWcaLiveQRCodeURLBlob(wcaLiveQRCodeUrlBlob: string) {
+  competitionsStore.setState((state) => ({ ...state, wcaLiveQRCodeUrlBlob }));
 }

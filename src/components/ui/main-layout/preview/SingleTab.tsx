@@ -10,6 +10,7 @@ import {
 import {
   A6Card,
   IdCardCompetitorInfo,
+  IdCardFooter,
   IdCardGroupInfo,
   IdCardHeader,
   IdCardPunchHole,
@@ -96,6 +97,7 @@ export function SingleTab() {
               allActivities={allActivities!}
             />
           )}
+          <IdCardFooter />
         </A6Card>
       </div>
     </>
