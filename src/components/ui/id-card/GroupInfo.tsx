@@ -44,7 +44,7 @@ function EventRows({
   const rowSizes = getRowSizes(events.length);
   let offset = 0;
   return (
-    <div className="flex-grow p-2 flex flex-col gap-1">
+    <div className="flex-grow px-4 py-2 flex flex-col gap-1">
       {rowSizes.map((size, rowIndex) => {
         const chunk = events.slice(offset, offset + size);
         offset += size;

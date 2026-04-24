@@ -14,10 +14,10 @@ export function CompetitorInfo({ name, wcaId, registrantId }: props) {
   return (
     <div
       ref={containerRef}
-      className="px-4 py-3 max-h-[113px] overflow-hidden border-b-2 border-dashed border-zinc-200 flex justify-between items-center "
+      className="px-4 py-3 max-h-[113px] overflow-hidden flex justify-between items-center "
     >
       <div className="w-[300px]">
-        <p className="text-[10px] font-bold text-cyan-800 uppercase">
+        <p className="text-[11px] font-bold text-cyan-800 uppercase">
           Participant
         </p>
         <h2

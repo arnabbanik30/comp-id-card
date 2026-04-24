@@ -28,12 +28,17 @@ export function OnlyGroupCell({ eventName, groupString }: props) {
         group ? (
           <CheckIcon />
         ) : (
-          <span className="text-xl font-black text-gray-800 leading-none py-1">
+          <span className="text-xl font-black text-gray-500 leading-none py-1">
             {'-'}
           </span>
         )
       ) : (
-        <span className="text-xl font-black text-gray-800 leading-none py-1">
+        <span
+          className={clsx('text-xl font-black leading-none py-1', {
+            'text-gray-800': !!group,
+            'text-gray-500': !group,
+          })}
+        >
           {group ?? '-'}
         </span>
       )}

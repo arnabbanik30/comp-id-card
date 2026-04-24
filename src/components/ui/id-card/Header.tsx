@@ -7,7 +7,7 @@ type HeaderProps = {
 };
 export function Header({ name, date, venue }: HeaderProps) {
   return (
-    <div className="bg-linear-to-r from-zinc-500 via-stone-600 to-zinc-900 p-4 text-white">
+    <div className="bg-gradient-to-tr from-gray-700 via-gray-800 to-black p-4 text-white">
       <div className="flex justify-between pt-4 items-center">
         <div>
           <h1 className="text-xl font-black leading-none tracking-tighter uppercase">
