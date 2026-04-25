@@ -14,12 +14,20 @@ export type AssignmentsWCIF = {
   assignmentCode: AssignmentCodeWCIF | null;
 };
 
+export type RegistrationStatusWCIF = 'accepted' | 'pending' | 'deleted';
+
+export type PersonRegistrationWCIF = {
+  eventIds: Array<WcaEventIdType> | null;
+  status: RegistrationStatusWCIF | null;
+};
+
 export type PersonWCIF = {
   name: string | null;
   wcaId: string | null | undefined;
   registrantId: number;
   countryIso2: string | null;
   assignments: Array<AssignmentsWCIF> | null;
+  registration: PersonRegistrationWCIF | null;
 };
 
 export type ActivityWCIF = {

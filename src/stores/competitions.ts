@@ -51,7 +51,17 @@ export function setSelectedCompId(selectedCompId: string) {
 }
 
 export function setCompData(compDataWCIF: CompetitionWCIF) {
-  competitionsStore.setState((state) => ({ ...state, compDataWCIF }));
+  const compDataWithAcceptedPersonsOnly: CompetitionWCIF = {
+    ...compDataWCIF,
+    persons:
+      compDataWCIF.persons?.filter(
+        (p) => p.registration?.status === 'accepted',
+      ) ?? [],
+  };
+  competitionsStore.setState((state) => ({
+    ...state,
+    compDataWCIF: compDataWithAcceptedPersonsOnly,
+  }));
 }
 
 export function setWcaLiveQRCodeURLBlob(wcaLiveQRCodeUrlBlob: string) {
