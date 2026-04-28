@@ -1,4 +1,5 @@
 import { Card, CardHeader, CardTitle } from '../../card';
+import { IdCardHeaderConfig } from './IdCardHeaderConfig';
 
 export function ConfigCard() {
   return (
@@ -6,6 +7,7 @@ export function ConfigCard() {
       <CardHeader>
         <CardTitle>Config</CardTitle>
       </CardHeader>
+      <IdCardHeaderConfig />
     </Card>
   );
 }

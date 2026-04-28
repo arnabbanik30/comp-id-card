@@ -90,11 +90,7 @@ export function SingleTab() {
       <div className="p-2 m-2 flex justify-center align-center">
         <A6Card>
           <IdCardPunchHole />
-          <IdCardHeader
-            name={compData.shortName!}
-            date="7-8 May, 2026"
-            venue="BUBT, MIRPUR"
-          />
+          <IdCardHeader name={compData.shortName!} />
           <IdCardCompetitorInfo
             name={selectedPerson?.name ?? ''}
             wcaId={selectedPerson?.wcaId}

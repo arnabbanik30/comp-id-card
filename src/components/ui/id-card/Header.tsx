@@ -1,11 +1,13 @@
+import { useSelector } from '@tanstack/react-store';
 import WcaLogo from '#/assets/WCA Logo.svg';
+import { idCardConfigStore } from '#/stores/id-card-config';
 
 type HeaderProps = {
   name: string;
-  date: string;
-  venue: string;
 };
-export function Header({ name, date, venue }: HeaderProps) {
+export function Header({ name }: HeaderProps) {
+  const { header } = useSelector(idCardConfigStore, (state) => state);
+
   return (
     <div className="bg-gradient-to-tr from-gray-700 via-gray-800 to-black p-4 text-white">
       <div className="flex justify-between pt-4 items-center">
@@ -14,7 +16,7 @@ export function Header({ name, date, venue }: HeaderProps) {
             {name}
           </h1>
           <p className="text-[12px] font-bold opacity-80 mt-1">
-            {date} • {venue}
+            {header?.compDate} • {header?.venueName}
           </p>
         </div>
         <img
